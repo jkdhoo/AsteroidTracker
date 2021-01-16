@@ -11,11 +11,28 @@ interface AsteroidDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg asteroids: DatabaseAsteroid)
+
+    @Query("DELETE FROM databaseasteroid")
+    fun clear()
 }
 
-@Database(entities = [DatabaseAsteroid::class], version = 1, exportSchema = false)
+@Dao
+interface PictureOfDayDao {
+    @Query("select * from databasepictureofday WHERE date = :date")
+    fun getPictureOfDay(date: String): LiveData<DatabasePictureOfDay>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(vararg potd: DatabasePictureOfDay)
+
+    @Query("DELETE FROM databasepictureofday")
+    fun clear()
+}
+
+@Database(entities = [DatabaseAsteroid::class, DatabasePictureOfDay::class], version = 1, exportSchema = false)
+
 abstract class AsteroidsDatabase : RoomDatabase() {
     abstract val asteroidDao: AsteroidDao
+    abstract val pictureOfDayDao: PictureOfDayDao
 }
 
 private lateinit var INSTANCE: AsteroidsDatabase
@@ -23,9 +40,11 @@ private lateinit var INSTANCE: AsteroidsDatabase
 fun getDatabase(context: Context): AsteroidsDatabase {
     synchronized(AsteroidsDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(context.applicationContext,
-                    AsteroidsDatabase::class.java,
-                    "asteroids").build()
+            INSTANCE = Room.databaseBuilder(
+                context.applicationContext,
+                AsteroidsDatabase::class.java,
+                "asteroids"
+            ).build()
         }
     }
     return INSTANCE

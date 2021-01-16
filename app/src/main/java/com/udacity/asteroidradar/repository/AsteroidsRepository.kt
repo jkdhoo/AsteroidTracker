@@ -1,17 +1,19 @@
 package com.udacity.asteroidradar.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.Constants.API_KEY
+import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.Network
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.database.AsteroidsDatabase
 import com.udacity.asteroidradar.database.DatabaseAsteroid
+import com.udacity.asteroidradar.database.DatabasePictureOfDay
 import com.udacity.asteroidradar.database.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,7 +22,8 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
     /**
      * A playlist of videos that can be shown on the screen.
      */
-    val asteroidsList: LiveData<List<DatabaseAsteroid>> = database.asteroidDao.getAsteroids()
+    val asteroidsList: LiveData<List<DatabaseAsteroid>> by lazy { database.asteroidDao.getAsteroids() }
+    val potd: LiveData<DatabasePictureOfDay> by lazy { database.pictureOfDayDao.getPictureOfDay(getCurrentDate()) }
 
     /**
      * Refresh the videos stored in the offline cache.
@@ -34,10 +37,13 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
             val responseString = Network.asteroids.getAsteroidsAsync(API_KEY, getCurrentDate()).await()
-            Log.i("TAG", responseString)
             val responseJson = JSONObject(responseString)
             val asteroidsArray = parseAsteroidsJsonResult(responseJson)
+            Timber.i(asteroidsArray.toString())
             database.asteroidDao.insertAll(*asteroidsArray.asDatabaseModel())
+            val responseObject: PictureOfDay = Network.potd.getPictureOfDayAsync(API_KEY).await()
+            Timber.i(responseObject.toString())
+            database.pictureOfDayDao.insert(responseObject.asDatabaseModel())
         }
     }
 
