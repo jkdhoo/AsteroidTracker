@@ -10,9 +10,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-/**
- * Override application to setup background work via WorkManager
- */
 class AsteroidApplication : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)

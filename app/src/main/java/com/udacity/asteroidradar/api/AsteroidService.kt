@@ -12,32 +12,21 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
-@Target(AnnotationTarget.FUNCTION)
-@Retention(AnnotationRetention.RUNTIME)
-internal annotation class StringParse
-
-@Target(AnnotationTarget.FUNCTION)
-@Retention(AnnotationRetention.RUNTIME)
-internal annotation class MoshiParse
-
 interface AsteroidService {
 
-    @GET("neo/rest/v1/feed") @StringParse
+    @GET("neo/rest/v1/feed")
     fun getAsteroidsAsync(
         @Query("api_key") apiKey: String,
         @Query("start_date") startDate: String
     ): Deferred<String>
 
-    @GET("planetary/apod") @MoshiParse
-    fun getPictureOfDayAsync(@Query("api_key") apiKey: String): Deferred<PictureOfDay>
+    @GET("planetary/apod")
+    fun getPictureOfDayAsync(
+        @Query("api_key") apiKey: String
+    ): Deferred<PictureOfDay>
 }
 
-/**
- * Main entry point for network access. Call like `Network.devbytes.getPlaylist()`
- */
 object Network {
-    // Configure retrofit to parse JSON and use coroutines
 
     private val retrofitAsteroids = Retrofit.Builder()
         .baseUrl(BASE_URL)
