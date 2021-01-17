@@ -3,11 +3,12 @@ package com.udacity.asteroidradar.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.Deferred
 
 @Dao
 interface AsteroidDao {
     @Query("select * from databaseasteroid")
-    fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
+    fun getAsteroidsAsync(): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg asteroids: DatabaseAsteroid)
@@ -19,7 +20,7 @@ interface AsteroidDao {
 @Dao
 interface PictureOfDayDao {
     @Query("select * from databasepictureofday WHERE date = :date")
-    fun getPictureOfDay(date: String): LiveData<DatabasePictureOfDay>
+    fun getPictureOfDayAsync(date: String): LiveData<DatabasePictureOfDay>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg potd: DatabasePictureOfDay)

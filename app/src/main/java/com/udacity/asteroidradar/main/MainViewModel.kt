@@ -1,31 +1,30 @@
 package com.udacity.asteroidradar.main
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.AsteroidApplication
 import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: AsteroidApplication) : AndroidViewModel(application) {
 
     private val database = getDatabase(application)
-    private val asteroidsRepository = AsteroidsRepository(database)
+    private val repository = AsteroidsRepository(database)
+
+    val potd = repository.potd
+    val asteroidList = repository.asteroidsList
 
     init {
         viewModelScope.launch {
-            asteroidsRepository.refreshAsteroids()
+            repository.refreshPotd()
+            repository.refreshAsteroids()
         }
     }
 
-    val asteroids = asteroidsRepository.asteroidsList
-    val potd = asteroidsRepository.potd
-
-    class Factory(private val app: Application): ViewModelProvider.Factory {
-        override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+    class Factory(private val app: AsteroidApplication) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return MainViewModel(app) as T

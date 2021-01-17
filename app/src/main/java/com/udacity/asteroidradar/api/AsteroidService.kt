@@ -36,7 +36,7 @@ object Network {
 
     val asteroids: AsteroidService = retrofitAsteroids.create(AsteroidService::class.java)
 
-    val moshi = Moshi.Builder()
+    private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
 
