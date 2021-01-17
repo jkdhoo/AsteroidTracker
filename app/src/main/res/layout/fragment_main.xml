@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_background">
+        android:background="@color/primaryBackgroundColor">
 
         <FrameLayout
             android:id="@+id/activity_main_image_of_the_day_layout"
@@ -28,6 +28,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.potd.hdurl}"
                 app:srcCompat="@drawable/placeholder_picture_of_day"
                 android:contentDescription="@string/image_of_the_day" />
 
@@ -41,7 +42,7 @@
                 android:textSize="20sp"
                 android:layout_gravity="bottom"
                 android:background="#55010613"
-                android:text="@{viewModel.potd.explanation}" />
+                android:text="@{viewModel.potd.title}" />
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView

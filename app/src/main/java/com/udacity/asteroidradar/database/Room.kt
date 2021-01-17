@@ -7,8 +7,11 @@ import kotlinx.coroutines.Deferred
 
 @Dao
 interface AsteroidDao {
-    @Query("select * from databaseasteroid")
+    @Query("select * from databaseasteroid ORDER BY closeApproachDate ASC")
     fun getAsteroidsAsync(): LiveData<List<DatabaseAsteroid>>
+
+    @Query("select * from databaseasteroid WHERE closeApproachDate = :date")
+    fun getTodaysAsteroidsAsync(date: String): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg asteroids: DatabaseAsteroid)

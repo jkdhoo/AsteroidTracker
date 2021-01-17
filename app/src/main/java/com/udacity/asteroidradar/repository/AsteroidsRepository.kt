@@ -20,17 +20,18 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
 
     val asteroidsList: LiveData<List<Asteroid>> =
         Transformations.map(database.asteroidDao.getAsteroidsAsync()) {
-            it.asDomainModel()
+            it?.asDomainModel()
         }
 
     val potd: LiveData<PictureOfDay> =
         Transformations.map(database.pictureOfDayDao.getPictureOfDayAsync(getCurrentDate())) {
-            it.asDomainModel()
+            it?.asDomainModel()
         }
 
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
-            val responseString = Network.asteroids.getAsteroidsAsync(API_KEY, getCurrentDate()).await()
+            val responseString =
+                Network.asteroids.getAsteroidsAsync(API_KEY, getCurrentDate()).await()
             val responseJson = JSONObject(responseString)
             val asteroidsArray = parseAsteroidsJsonResult(responseJson)
             Timber.i(asteroidsArray.toString())

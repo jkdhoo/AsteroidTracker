@@ -14,6 +14,8 @@ import retrofit2.http.Query
 
 interface AsteroidService {
 
+//    enum class AsteroidsFilter(val value: String) { SHOW_RENT(AsteroidService.), SHOW_BUY("buy"), SHOW_ALL("all") }
+
     @GET("neo/rest/v1/feed")
     fun getAsteroidsAsync(
         @Query("api_key") apiKey: String,

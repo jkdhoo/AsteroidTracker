@@ -19,32 +19,48 @@
             android:onClick="@{() -> clickListener.onClick(asteroid)}">
 
         <ImageView
-                android:id="@+id/asteroid_image"
-                android:layout_width="50dp"
-                android:layout_height="76dp"
-                app:srcCompat="@drawable/ic_help_circle"
-                android:layout_marginBottom="26dp"
-                android:layout_marginTop="26dp"
-                android:layout_marginStart="@dimen/spacing_normal"
-                android:contentDescription="@string/nasa_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+            android:id="@+id/hazardous_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:contentDescription="@string/nasa_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_help_circle"
+            app:statusIcon="@{asteroid.potentiallyHazardous}" />
 
         <TextView
-                android:id="@+id/chapter_name"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/spacing_normal"
-                android:layout_marginEnd="@dimen/spacing_normal"
-                android:text="@{asteroid.codename}"
-                app:layout_constraintStart_toEndOf="@+id/asteroid_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="GDG Mountain View is really long so it will wrap in tools"
-                android:textAppearance="?textAppearanceHeadline6"
-                android:gravity="center_vertical"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintBottom_toBottomOf="@+id/asteroid_image"
-                app:layout_constraintTop_toTopOf="@+id/asteroid_image"/>
+            android:id="@+id/asteroid_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:gravity="bottom"
+            android:text="@{asteroid.codename}"
+            android:textAppearance="?textAppearanceHeadline6"
+            app:layout_constraintBottom_toTopOf="@id/asteroid_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/hazardous_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="This will be the name of the asteroid" />
+
+        <TextView
+            android:id="@+id/asteroid_date"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:gravity="top"
+            android:text="@{asteroid.closeApproachDate}"
+            android:textAppearance="?textAppearanceHeadline6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/hazardous_image"
+            app:layout_constraintTop_toBottomOf="@id/asteroid_name"
+            tools:text="This will be the date the asteroid passes by Earth" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

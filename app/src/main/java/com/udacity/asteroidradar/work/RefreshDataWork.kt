@@ -19,6 +19,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
         val database = getDatabase(applicationContext)
         val repository = AsteroidsRepository(database)
         return try {
+            repository.refreshPotd()
             repository.refreshAsteroids()
             Timber.i("Successfully refreshed asteroid list.")
             Result.success()
