@@ -1,11 +1,9 @@
 package com.udacity.asteroidradar.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.PictureOfDay
-import kotlinx.coroutines.Deferred
 
 @Entity
 data class DatabaseAsteroid constructor(

@@ -3,7 +3,6 @@ package com.udacity.asteroidradar.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.coroutines.Deferred
 
 @Dao
 interface AsteroidDao {
@@ -12,6 +11,9 @@ interface AsteroidDao {
 
     @Query("select * from databaseasteroid WHERE closeApproachDate = :date")
     fun getTodaysAsteroidsAsync(date: String): LiveData<List<DatabaseAsteroid>>
+
+    @Query("SELECT * FROM databaseasteroid WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER BY closeApproachDate ASC")
+    fun getWeeklyAsteroidsAsync(startDate: String, endDate: String): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg asteroids: DatabaseAsteroid)
