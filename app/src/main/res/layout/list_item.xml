@@ -29,12 +29,12 @@
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="@dimen/spacing_normal"
             android:layout_marginBottom="@dimen/spacing_normal"
-            android:contentDescription="@string/potentially_hazardous_asteroid_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_help_circle"
-            app:statusIcon="@{asteroid.potentiallyHazardous}" />
+            app:statusIcon="@{asteroid.potentiallyHazardous}"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/asteroid_name"
@@ -42,7 +42,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginEnd="@dimen/spacing_normal"
-            android:contentDescription="@string/asteroid_codename"
+            android:contentDescription="@{@string/asteroid_codename + asteroid.codename}"
             android:gravity="bottom"
             android:text="@{asteroid.codename}"
             android:textAppearance="?textAppearanceHeadline6"
@@ -58,7 +58,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginEnd="@dimen/spacing_normal"
-            android:contentDescription="@string/close_approach_data_title"
+            android:contentDescription="@{@string/close_approach_date + asteroid.closeApproachDate}"
             android:gravity="top"
             android:text="@{asteroid.closeApproachDate}"
             app:layout_constraintBottom_toBottomOf="parent"

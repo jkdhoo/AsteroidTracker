@@ -12,7 +12,7 @@ import java.lang.IllegalArgumentException
 class MainViewModel(application: AsteroidApplication) : AndroidViewModel(application) {
 
     private val database = getDatabase(application)
-    private val repository = AsteroidsRepository(database)
+    private val repository = AsteroidsRepository(application, database)
 
     private val asteroidFilter = MutableLiveData(AsteroidService.AsteroidsFilter.SAVED)
 
