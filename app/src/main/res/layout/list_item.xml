@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/layout">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout">
+
     <data>
+
         <variable
-                name="asteroid"
-                type="com.udacity.asteroidradar.Asteroid"/>
+            name="asteroid"
+            type="com.udacity.asteroidradar.Asteroid" />
+
         <variable
-                name="clickListener"
-                type="com.udacity.asteroidradar.asteroidlist.AsteroidClickListener"/>
+            name="clickListener"
+            type="com.udacity.asteroidradar.asteroidlist.AsteroidClickListener" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context="com.udacity.asteroidradar.AsteroidListFragment"
-            android:onClick="@{() -> clickListener.onClick(asteroid)}">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(asteroid)}"
+        tools:context="com.udacity.asteroidradar.AsteroidListFragment">
 
         <ImageView
             android:id="@+id/hazardous_image"
@@ -25,7 +29,7 @@
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="@dimen/spacing_normal"
             android:layout_marginBottom="@dimen/spacing_normal"
-            android:contentDescription="@string/nasa_title"
+            android:contentDescription="@string/potentially_hazardous_asteroid_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +42,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginEnd="@dimen/spacing_normal"
+            android:contentDescription="@string/asteroid_codename"
             android:gravity="bottom"
             android:text="@{asteroid.codename}"
             android:textAppearance="?textAppearanceHeadline6"
@@ -53,9 +58,9 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginEnd="@dimen/spacing_normal"
+            android:contentDescription="@string/close_approach_data_title"
             android:gravity="top"
             android:text="@{asteroid.closeApproachDate}"
-            android:textAppearance="?textAppearanceHeadline6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/hazardous_image"

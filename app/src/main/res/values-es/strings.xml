@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Radar de asteroides</string>
+    <string name="weekly_asteroids">Ver asteroides semanales</string>
+    <string name="today_asteroids">Ver asteroides de hoy</string>
+    <string name="saved_asteroids">Ver asteroides guardados</string>
+    <string name="close_approach_data_title">Fecha de aproximación cercana</string>
+    <string name="absolute_magnitude_title">Magnitud absoluta</string>
+    <string name="estimated_diameter_title">Diámetro estimado</string>
+    <string name="relative_velocity_title">Velocidad relativa</string>
+    <string name="distance_from_earth_title">Distancia de la tierra</string>
+    <string name="astronomical_unit_format">%f au</string>
+    <string name="km_unit_format">%f km</string>
+    <string name="km_s_unit_format">%f km/s</string>
+    <string name="image_of_the_day">Imagen del día</string>
+    <string name="astronomical_unit_explanation">La unidad astronómica (au) es una unidad de longitud, aproximadamente la distancia de la Tierra al Sol e igual a unos 150 millones de kilómetros (93 millones de millas)</string>
+    <string name="astronomical_unit_explanation_button">Definición de unidad astronómica</string>
+    <string name="potentially_hazardous_asteroid_image">Imagen de asteroide potencialmente peligrosa</string>
+    <string name="not_hazardous_asteroid_image">Imagen de asteroide no peligrosa</string>
+    <string name="nasa_title">Imagen de hoy de la NASA</string>
+    <string name="check_connection">Comprueba tu conexión a Internet</string>
+    <string name="asteroid_codename">Nombre en clave de asteroide</string>
+    <string name="loading_page">Cargando página</string>
+    <string name="list_of_asteroids">Lista de asteroides</string>
+    <string name="image_of_the_day_description">Imagen de la descripción del día</string>
+    <string name="distance_from_earth">Distancia de la tierra</string>
+    <string name="relative_velocity">Velocidad relativa</string>
+    <string name="estimated_diameter">Diámetro estimado</string>
+    <string name="absolute_magnitude">Magnitud absoluta</string>
+    <string name="close_approach_date">Fecha de aproximación cercana</string>
+</resources>

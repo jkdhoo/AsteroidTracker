@@ -6,6 +6,7 @@ import com.udacity.asteroidradar.api.AsteroidService
 import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.IllegalArgumentException
 
 class MainViewModel(application: AsteroidApplication) : AndroidViewModel(application) {
@@ -27,8 +28,13 @@ class MainViewModel(application: AsteroidApplication) : AndroidViewModel(applica
 
     init {
         viewModelScope.launch {
-            repository.refreshPotd()
-            repository.refreshAsteroids()
+            try {
+                repository.refreshPotd()
+                repository.refreshAsteroids()
+                Timber.i("Successfully refreshed asteroid list.")
+            } catch (ex: Exception) {
+                Timber.i("Failed to refresh asteroid list.")
+            }
         }
     }
 

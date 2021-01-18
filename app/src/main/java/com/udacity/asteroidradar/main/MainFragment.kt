@@ -43,7 +43,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.weekly_asteroids -> viewModel.setAsteroidFilter(AsteroidService.AsteroidsFilter.WEEKLY)
             R.id.today_asteroids -> viewModel.setAsteroidFilter(AsteroidService.AsteroidsFilter.TODAY)
             else -> viewModel.setAsteroidFilter(AsteroidService.AsteroidsFilter.SAVED)

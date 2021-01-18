@@ -6,13 +6,14 @@ import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.Constants.API_KEY
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.Network
+import com.udacity.asteroidradar.api.getNextSevenDaysFormattedDates
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import timber.log.Timber
-import com.udacity.asteroidradar.api.getNextSevenDaysFormattedDates
+
 
 class AsteroidsRepository(private val database: AsteroidsDatabase) {
 
@@ -20,15 +21,25 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
     private val startDate = dateRange[0]
     private val endDate = dateRange[6]
 
-    val asteroidsList: LiveData<List<Asteroid>> = Transformations.map(database.asteroidDao.getAsteroidsAsync()) {
+    val asteroidsList: LiveData<List<Asteroid>> =
+        Transformations.map(database.asteroidDao.getAsteroidsAsync()) {
+            it?.asDomainModel()
+        }
+
+    val todaysAsteroidsList: LiveData<List<Asteroid>> = Transformations.map(
+        database.asteroidDao.getTodaysAsteroidsAsync(
+            startDate
+        )
+    ) {
         it?.asDomainModel()
     }
 
-    val todaysAsteroidsList: LiveData<List<Asteroid>> = Transformations.map(database.asteroidDao.getTodaysAsteroidsAsync(startDate)) {
-        it?.asDomainModel()
-    }
-
-    val weeklyAsteroidsList: LiveData<List<Asteroid>> = Transformations.map(database.asteroidDao.getWeeklyAsteroidsAsync(startDate, endDate)) {
+    val weeklyAsteroidsList: LiveData<List<Asteroid>> = Transformations.map(
+        database.asteroidDao.getWeeklyAsteroidsAsync(
+            startDate,
+            endDate
+        )
+    ) {
         it?.asDomainModel()
     }
 
@@ -39,11 +50,9 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
 
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
-            val responseString =
-                Network.asteroids.getAsteroidsAsync(API_KEY, startDate).await()
+            val responseString = Network.asteroids.getAsteroidsAsync(API_KEY, startDate).await()
             val responseJson = JSONObject(responseString)
             val asteroidsArray = parseAsteroidsJsonResult(responseJson)
-            Timber.i(asteroidsArray.toString())
             database.asteroidDao.insertAll(*asteroidsArray.asDatabaseModel())
         }
     }

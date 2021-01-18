@@ -13,7 +13,10 @@ interface AsteroidDao {
     fun getTodaysAsteroidsAsync(date: String): LiveData<List<DatabaseAsteroid>>
 
     @Query("SELECT * FROM databaseasteroid WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER BY closeApproachDate ASC")
-    fun getWeeklyAsteroidsAsync(startDate: String, endDate: String): LiveData<List<DatabaseAsteroid>>
+    fun getWeeklyAsteroidsAsync(
+        startDate: String,
+        endDate: String
+    ): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg asteroids: DatabaseAsteroid)
@@ -34,7 +37,11 @@ interface PictureOfDayDao {
     fun clear()
 }
 
-@Database(entities = [DatabaseAsteroid::class, DatabasePictureOfDay::class], version = 1, exportSchema = false)
+@Database(
+    entities = [DatabaseAsteroid::class, DatabasePictureOfDay::class],
+    version = 1,
+    exportSchema = false
+)
 
 abstract class AsteroidsDatabase : RoomDatabase() {
     abstract val asteroidDao: AsteroidDao

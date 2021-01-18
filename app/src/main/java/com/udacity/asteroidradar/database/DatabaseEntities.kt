@@ -67,7 +67,8 @@ fun DatabasePictureOfDay.asDomainModel() = PictureOfDay(
     mediaType = mediaType,
     serviceVersion = serviceVersion,
     title = title,
-    url = url)
+    url = url
+)
 
 fun PictureOfDay.asDatabaseModel() = DatabasePictureOfDay(
     date = date,
@@ -76,4 +77,5 @@ fun PictureOfDay.asDatabaseModel() = DatabasePictureOfDay(
     mediaType = mediaType,
     serviceVersion = serviceVersion,
     title = title,
-    url = url)
+    url = url
+)
